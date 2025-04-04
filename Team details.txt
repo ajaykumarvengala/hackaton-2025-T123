@@ -1,0 +1,9 @@
+Topic           : Fake social Media accounts and their detection
+Domain		: Cyber Security
+Team ID		: T123
+Team name       : T123 
+Team members	: V.Ajay Kumar(2303A51268)
+		  V.Rithik(2303A51263)
+		  CH.koushik(2303A51938)
+		  M.Prashanth(2303A51270)
+		  T.Harivarshith(2303A51351)
