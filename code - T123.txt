@@ -1,0 +1,64 @@
+import java.util.*;
+
+class SocialMediaAccount {
+    String username;
+    String bio;
+    Date accountCreationDate;
+    int numberOfFriends;
+    int numberOfPosts;
+    boolean hasProfilePicture;
+    boolean sendsSpamMessages;
+
+    public SocialMediaAccount(String username, String bio, Date accountCreationDate,
+                              int numberOfFriends, int numberOfPosts, boolean hasProfilePicture,
+                              boolean sendsSpamMessages) {
+        this.username = username;
+        this.bio = bio;
+        this.accountCreationDate = accountCreationDate;
+        this.numberOfFriends = numberOfFriends;
+        this.numberOfPosts = numberOfPosts;
+        this.hasProfilePicture = hasProfilePicture;
+        this.sendsSpamMessages = sendsSpamMessages;
+    }
+}
+
+class FakeAccountDetector {
+
+    public boolean isFake(SocialMediaAccount account) {
+        long accountAgeDays = (new Date().getTime() - account.accountCreationDate.getTime()) / (1000 * 60 * 60 * 24);
+
+        if (account.numberOfFriends < 10)
+            return true;
+        if (!account.hasProfilePicture)
+            return true;
+        if (account.bio.toLowerCase().contains("earn money fast") || account.bio.length() < 5)
+            return true;
+        if (account.numberOfPosts == 0 && accountAgeDays < 7)
+            return true;
+        if (account.sendsSpamMessages)
+            return true;
+
+        return false;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        FakeAccountDetector detector = new FakeAccountDetector();
+        SocialMediaAccount suspiciousAccount = new SocialMediaAccount(
+                "fastmoney_123",
+                "Earn money fast",
+                new GregorianCalendar(2025, Calendar.APRIL, 1).getTime(),
+                3,
+                0,
+                false,
+                true
+        );
+
+        if (detector.isFake(suspiciousAccount)) {
+            System.out.println("⚠ Suspicious/Fake Account Detected: " + suspiciousAccount.username);
+        } else {
+            System.out.println("✅ Account appears legitimate: " + suspiciousAccount.username);
+        }
+    }
+}
